@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobo Guará Paintball - Adrenalina e Estratégia em Brasília</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#e50914',
+                            darkRed: '#990000',
+                            glowRed: '#ff2a35',
+                            black: '#0a0a0a',
+                            darkGray: '#141414',
+                            cardBg: '#1f1f1f',
+                            borderBg: '#2a2a2a'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Teko', 'sans-serif'],
+                        body: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #990000;
+        }
+
+        /* Parallax Container */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Scroll Animations */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glow & Neon Effects */
+        .text-glow {
+            text-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
+        }
+
+        /* Tactical Grid Pattern */
+        .tactical-grid {
+            background-image: radial-gradient(rgba(229, 9, 20, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* LOJA INTEGRADA */
+        .product-card {
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 45px rgba(229, 9, 20, .20);
+            border-color: #e50914;
+        }
+
+        .product-card img {
+            transition: transform .5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .cart-panel {
+            transition: transform .3s ease;
+        }
+
+        .cart-panel.closed {
+            transform: translateX(110%);
+        }
+
+        /* Estilo para a imagem original indicar que é clicável */
+.poster-campeonato {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.poster-campeonato:hover {
+  transform: scale(1.02); /* Leve efeito ao passar o mouse */
+}
+
+/* Fundo escuro do Modal */
+.poster-modal {
+  display: none; 
+  position: fixed; 
+  z-index: 9999; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.85); 
+  backdrop-filter: blur(5px); /* Efeito opcional de desfoque no fundo */
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Imagem Ampliada */
+.poster-modal-conteudo {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+  object-fit: contain;
+}
+
+/* Botão de Fechar (X) */
+.fechar-poster {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Animação suave ao abrir */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* =========================================================
+   PÔSTER DO CAMPEONATO - AMPLIAÇÃO EM TELA
+   ========================================================= */
+
+.poster-campeonato {
+    cursor: zoom-in;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.poster-campeonato:hover {
+    transform: scale(1.03);
+    filter: brightness(1.08);
+}
+
+/* Modal do pôster em tela cheia */
+.poster-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.94);
+    backdrop-filter: blur(8px);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    animation: fadeIn 0.3s ease;
+}
+
+/* Pôster ampliado */
+.poster-modal-conteudo {
+    width: auto;
+    height: auto;
+
+    max-width: 96vw;
+    max-height: 94vh;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 30px rgba(229, 9, 20, 0.45),
+        0 10px 60px rgba(0, 0, 0, 0.8);
+
+    animation: posterZoom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animação de entrada */
+@keyframes posterZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.65);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botão X */
+.fechar-poster {
+    position: fixed;
+    top: 18px;
+    right: 30px;
+
+    z-index: 100000;
+
+    color: #fff;
+    font-size: 48px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.fechar-poster:hover {
+    color: #e50914;
+    transform: scale(1.15);
+}
+
+/* BOTÃO FLUTUANTE WHATSAPP */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    text-decoration: none;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #20bd5a;
+    color: white;
+}
+
+    </style>
+</head>
+<!-- Modal para Ampliar o Pôster -->
+<div id="posterModal" class="poster-modal" onclick="fecharPoster()">
+    <span class="fechar-poster">&times;</span>
+    <img class="poster-modal-conteudo" id="imgAmpliada">
+</div>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a href="https://wa.me/5561998778885" target="_blank" rel="noopener noreferrer" class="whatsapp-float"
+    aria-label="Falar conosco pelo WhatsApp">
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+<body
+    class="bg-brand-black text-gray-100 font-body antialiased selection:bg-brand-red selection:text-white overflow-x-hidden">
+
+    <!-- 1. NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full bg-brand-black/95 backdrop-blur-md border-b border-brand-red/30 z-50 transition-all duration-300"
+        id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#inicio" class="flex items-center group">
+                    <span
+                        class="font-heading text-3xl sm:text-4xl font-bold tracking-wider text-white uppercase group-hover:text-brand-red transition-colors leading-none">
+                        LOBO GUARÁ <span class="text-brand-red">PAINTBALL</span>
+                    </span>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-7 font-semibold tracking-wider uppercase text-sm">
+                    <a href="#inicio" class="hover:text-brand-red transition-colors duration-200 py-1">Início</a>
+                    <a href="#sobre" class="hover:text-brand-red transition-colors duration-200 py-1">Sobre</a>
+                    <a href="#valores" class="hover:text-brand-red transition-colors duration-200 py-1">Valores</a>
+                    <a href="#equipamentos"
+                        class="hover:text-brand-red transition-colors duration-200 py-1">Equipamentos</a>
+                    <a href="#clima"
+                        class="hover:text-brand-red transition-colors duration-200 py-1 flex items-center gap-1.5 text-yellow-400">
+                        <i class="fa-solid fa-cloud-sun"></i> Clima
+                    </a>
+                    <a href="#galeria" class="hover:text-brand-red transition-colors duration-200 py-1">Galeria</a>
+                    <a href="#loja"
+                        class="hover:text-brand-red transition-colors duration-200 py-1 flex items-center gap-1.5 text-brand-red">
+                        <i class="fa-solid fa-store"></i> Loja
+                    </a>
+                    <a href="#reserva"
+                        class="bg-brand-red hover:bg-brand-darkRed text-white px-5 py-2.5 rounded-md font-bold transition-all shadow-lg shadow-brand-red/30 hover:shadow-brand-red/50 hover:scale-105 active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-crosshair"></i> Agendar Combate
+                    </a>
+                </div>
+
+                <div class="lg:hidden flex items-center space-x-3">
+                    <a href="#reserva" class="bg-brand-red text-white p-2 rounded-md font-bold text-xs uppercase">
+                        Reservar
+                    </a>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white text-2xl focus:outline-none p-2"
+                        aria-label="Abrir Menu">
+                        <i class="fa-solid fa-bars" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-brand-darkGray/98 border-b border-brand-red/30 px-6 pt-3 pb-8 space-y-4 font-semibold uppercase tracking-wider text-base">
+            <a href="#inicio" class="mobile-link block py-2 border-b border-gray-800 hover:text-brand-red">Início</a>
+            <a href="#sobre" class="mobile-link block py-2 border-b border-gray-800 hover:text-brand-red">Sobre</a>
+            <a href="#valores" class="mobile-link block py-2 border-b border-gray-800 hover:text-brand-red">Valores</a>
+            <a href="#equipamentos"
+                class="mobile-link block py-2 border-b border-gray-800 hover:text-brand-red">Equipamentos</a>
+            <a href="#clima" class="mobile-link block py-2 border-b border-gray-800 text-yellow-400">
+                <i class="fa-solid fa-cloud-sun mr-2"></i> Condições do Clima
+            </a>
+            <a href="#galeria" class="mobile-link block py-2 border-b border-gray-800 hover:text-brand-red">Galeria</a>
+            <a href="#loja" class="mobile-link block py-2 border-b border-gray-800 text-brand-red">
+                <i class="fa-solid fa-store mr-2"></i> Loja
+            </a>
+            <a href="#reserva"
+                class="mobile-link block py-3 bg-brand-red text-center text-white font-bold rounded-lg shadow-md shadow-brand-red/40 mt-2">
+                Agendar Combate Agora
+            </a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section id="inicio"
+        class="relative pt-36 pb-24 md:pt-48 md:pb-36 tactical-grid overflow-hidden border-b border-brand-borderBg">
+        <div class="absolute inset-0 parallax-bg opacity-30 z-0 scale-105"
+            style="background-image: url('combatente_paintball_mascara_logo.jpg');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/80 to-transparent z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <!-- LOGO PRINCIPAL EM DESTAQUE -->
+            <div class="relative flex justify-center z-20 reveal-element active"
+                style="margin-top: -80px !important; margin-bottom: 12px !important;">
+                <div
+                    class="relative w-40 h-40 sm:w-48 sm:h-48 md:w-[240px] md:h-[240px] rounded-full border-4 border-brand-red bg-brand-black backdrop-blur-md shadow-2xl shadow-brand-red/60 overflow-hidden flex items-center justify-center p-0">
+                    <div class="absolute inset-0 rounded-full bg-brand-red/30 blur-2xl animate-pulse"></div>
+                    <div
+                        style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <img src="logo_lobo_guara_transparente_final.jpg"
+                            alt="Logo Lobo Guará Paintball Tático Centralizada"
+                            style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.05); transform-origin: center center; max-width: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left reveal-element active">
+                    <div
+                        class="inline-flex items-center space-x-2 bg-brand-red/20 border border-brand-red/50 px-4 py-1.5 rounded-full text-brand-red font-bold text-xs sm:text-sm uppercase tracking-widest backdrop-blur-sm">
+                        <i class="fa-solid fa-crosshair"></i>
+                        <span>O Maior & Mais Estratégico Campo do DF</span>
+                    </div>
+
+                    <h1
+                        class="font-heading text-6xl sm:text-7xl md:text-8xl font-bold uppercase leading-none tracking-tight">
+                        PREPARE-SE PARA A <span class="text-brand-red text-glow">BATALHA</span>
+                    </h1>
+
+                    <p
+                        class="text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+                        Viva a verdadeira adrenalina tática no <strong class="text-white">Lobo Guará Paintball</strong>.
+                        Cenários ultra realistas, equipamentos profissionais Tippmann, máscaras antiembaçantes e     arbitragem oficial para o seu esquadrão.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-3 pt-2 max-w-lg mx-auto lg:mx-0">
+                        <div class="bg-brand-darkGray/90 border border-brand-borderBg p-3 rounded-lg text-center">
+                            <span class="font-heading text-3xl font-bold text-brand-red block">3.000m²</span>
+                            <span class="text-xs text-gray-400 uppercase font-semibold">de Campo Tático</span>
+                        </div>
+                        <div class="bg-brand-darkGray/90 border border-brand-borderBg p-3 rounded-lg text-center">
+                            <span class="font-heading text-3xl font-bold text-brand-red block">100%</span>
+                            <span class="text-xs text-gray-400 uppercase font-semibold">Segurança</span>
+                        </div>
+                        <div class="bg-brand-darkGray/90 border border-brand-borderBg p-3 rounded-lg text-center">
+                            <span class="font-heading text-3xl font-bold text-brand-red block">+15 mil</span>
+                            <span class="text-xs text-gray-400 uppercase font-semibold">Jogadores</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#reserva"
+                            class="w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-brand-darkRed text-white text-lg font-bold rounded-lg shadow-xl shadow-brand-red/40 transition-all text-center hover:scale-105 active:scale-95 uppercase tracking-wider flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Reservar via WhatsApp
+                        </a>
+                        <a href="#valores"
+                            class="w-full sm:w-auto px-8 py-4 border-2 border-brand-red/60 hover:border-brand-red text-gray-200 hover:text-white text-lg font-bold rounded-lg transition-all text-center uppercase tracking-wider bg-brand-black/60 hover:bg-brand-red/10">
+                            Ver Pacotes & Preços
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CARD DO CAMPEONATO BRASILEIRO -->
+                <div class="lg:col-span-5 flex justify-center relative reveal-element active">
+                
+                    <div class="relative w-full max-w-md sm:max-w-lg min-h-[480px] md:min-h-[560px]">
+                
+                        <!-- BRILHO VERMELHO AO REDOR DO CARD -->
+                        <div class="absolute inset-0 rounded-3xl bg-brand-red/30 blur-3xl animate-pulse"></div>
+                
+                        <!-- CARD PRINCIPAL -->
+                        <div
+                            class="card-campeonato relative z-10 w-full h-full rounded-3xl border-2 border-brand-red/60 p-3 bg-brand-darkGray/90 backdrop-blur-md shadow-2xl shadow-brand-red/40 flex flex-col justify-between">
+                
+                            <!-- ÁREA DO BANNER -->
+                            <div class="banner-campeonato-container relative w-full h-[430px] sm:h-[490px] rounded-2xl bg-black">
+                
+                                <img src="torneio _Image_bt1q1bt1q1bt1q1b.jpg" alt="Lobo Guará Paintball - Etapa Final do Brasileiro 2026"
+                                    class="poster-campeonato w-full h-full object-contain bg-black/60 rounded-2xl" onclick="abrirPoster(this.src)">
+                
+                            </div>
+                
+                            <!-- TÍTULO DO CAMPEONATO -->
+                            <div
+                                class="mt-3 text-center bg-brand-red text-white font-heading text-2xl font-bold py-2.5 rounded-xl shadow-lg border border-white/20 uppercase tracking-wider">
+                                ETAPA FINAL DO BRASILEIRO 2026
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SOBRE / CAMPOS & ESTRUTURA -->
+    <section id="sobre" class="py-24 bg-brand-darkGray relative border-b border-brand-borderBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">Estratégia &
+                    Domínio</span>
+                <h2 class="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-wide">
+                    SOBRE O <span class="text-brand-red">LOBO GUARÁ PAINTBALL</span>
+                </h2>
+                <div class="w-24 h-1 bg-brand-red mx-auto my-4 rounded-full"></div>
+                <p class="text-gray-300 text-base sm:text-lg">
+                    Há mais de 10 anos, o Lobo Guará faz parte do cenário esportivo e de entretenimento de Brasília, promovendo experiências
+                    marcantes através do paintball, torneios e eventos esportivos.
+                    Projetado para simulação de combate de alta fidelidade. O local perfeito para aniversários,  confraternizações de empresa e encontros de amigos que buscam adrenalina pura. Etapa do Campeonato Brasileiro de Paintball, com cenários táticos, obstáculos estratégicos e arbitragem oficial.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- FEATURE CARD 1 -->
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg rounded-2xl p-8 hover:border-brand-red/60 transition-all duration-300 hover:-translate-y-2 group reveal-element flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-16 h-16 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red text-3xl mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-chess-board"></i>
+                        </div>
+
+                        <img src="galpao1.jpeg.jpg" alt="Cenários Urbanos e Trincheiras"
+                            class="w-full h-64 object-cover rounded-xl mb-5">
+                        <h3 class="font-heading text-3xl font-bold uppercase text-white mb-3">CENÁRIOS URBANOS &
+                            TRINCHEIRAS</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Obstáculos estratégicos, carros abandonados, torres de sniper, bunkers e corredores para
+                            combate em área fechada e campo aberto.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col gap-2">
+                        <div class="text-brand-red font-semibold text-sm">Mais de 4 modalidades de jogo</div>
+                        <button
+                            onclick="openModalWithImage('Cenários Urbanos & Trincheiras', 'Nossos cenários contam com réplicas de áreas urbanas, trincheiras escavadas, torres de observação e diversos bunkers estratégicos projetados para combates dinâmicos e de alta adrenalina.', 'cena geral.jpeg.jpg')" ')"
+                            class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-brand-red transition-colors pt-1">
+                            <span>Ver Imagens & Detalhes do Cenário</span>
+                            <i class="fa-solid fa-arrow-right text-brand-red"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FEATURE CARD 2 -->
+
+             
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg rounded-2xl p-8 hover:border-brand-red/60 transition-all duration-300 hover:-translate-y-2 group reveal-element flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-16 h-16 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red text-3xl mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <img src="mascara.jpeg.jpg" alt="Cenários Urbanos e Trincheiras"
+                            class="w-full h-64 object-cover rounded-xl mb-5">
+                        <h3 class="font-heading text-3xl font-bold uppercase text-white mb-3">SEGURANÇA EM PRIMEIRO
+                            LUGAR</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Briefing de segurança obrigatório antes de todas as partidas, máscaras de proteção
+                            homologadas, coletes estofados e cronagem rigorosa dos marcadores.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col gap-2">
+                        <div class="text-brand-red font-semibold text-sm">Juízes treinados em campo</div>
+                        <button
+                            onclick="openModalWithImage('Estrutura de Segurança', 'Priorizamos a total segurança dos atletas com máscaras térmicas homologadas, coletes reforçados, briefing com instrutores experientes e rígido controle da velocidade dos marcadores (cronagem).', 'images.jpg')"
+                            class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-brand-red transition-colors pt-1">
+                            <span>Ver Estrutura de Segurança</span>
+                            <i class="fa-solid fa-arrow-right text-brand-red"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FEATURE CARD 3 -->
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg rounded-2xl p-8 hover:border-brand-red/60 transition-all duration-300 hover:-translate-y-2 group reveal-element flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-16 h-16 rounded-xl bg-brand-red/10 border border-brand-red/30 flex items-center justify-center text-brand-red text-3xl mb-6 group-hover:bg-brand-red group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-people-group"></i>
+                        </div>
+                        <img src="banho.jpeg.jpg" alt="Cenários Urbanos e Trincheiras"
+                            class="w-full h-64 object-cover rounded-xl mb-5">
+                        <h3 class="font-heading text-3xl font-bold uppercase text-white mb-3">ESTRUTURA COMPLETA</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Área VIP coberta com churrasqueira para comemorações, vestiários com chuveiros, lanchonete,
+                            estacionamento privativo e bebidas geladas.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col gap-2">
+                        <div class="text-brand-red font-semibold text-sm">Espaço ideal para eventos</div>
+                        <button
+                            onclick="openModalWithImage('Estrutura Completa', 'Oferecemos infraestrutura de ponta com Área VIP coberta, espaço gourmet com churrasqueira para festas, vestiários masculinos e femininos completos, lanchonete e estacionamento amplo.', 'banho.jpeg.jpg ')"
+                            class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-brand-red transition-colors pt-1">
+                        
+                            <span>Ver Estrutura Completa</span>
+                            <i class="fa-solid fa-arrow-right text-brand-red"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: TABELA DE VALORES & PACOTES -->
+    <section id="valores" class="py-24 bg-brand-black relative border-b border-brand-borderBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">Transparência &
+                    Diversão</span>
+                <h2 class="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-wide">
+                    TABELA DE <span class="text-brand-red">VALORES E PACOTES</span>
+                </h2>
+                <div class="w-24 h-1 bg-brand-red mx-auto my-4 rounded-full"></div>
+                <p class="text-gray-400 text-base sm:text-lg">
+                    Escolha a munição inicial do seu esquadrão. Todos os pacotes já incluem o kit completo de segurança
+                    e instrução pré-jogo.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- PACOTE RECRUTA -->
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg rounded-2xl p-8 hover:border-brand-red/50 transition-all duration-300 relative flex flex-col justify-between shadow-xl reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="text-xs uppercase tracking-wider font-bold text-gray-400">Iniciante</span>
+                                <h3 class="font-heading text-3xl font-bold text-white uppercase">Pacote Recruta</h3>
+                            </div>
+                            <span
+                                class="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-xs font-bold border border-gray-700">100
+                                Bolinhas</span>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="font-heading text-6xl font-bold text-white">50</span>
+                            <span class="text-sm text-gray-400"> / jogador</span>
+                        </div>
+
+                        <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>100 Bolinhas inclusas</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Marcador Semiautomático Tippmann</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Máscara Térmica de Proteção</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Colete de Proteção Tático</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>1 Hora de combate reservado</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#reserva" onclick="selectPackage('Recruta')"
+                        class="w-full py-3.5 bg-brand-darkGray hover:bg-brand-red text-white text-center font-bold uppercase rounded-lg transition-all border border-gray-700 hover:border-brand-red">
+                        Escolher Recruta
+                    </a>
+                </div>
+
+                <!-- PACOTE COMBATENTE (MAIS VENDIDO) -->
+                <div
+                    class="bg-brand-cardBg border-2 border-brand-red rounded-2xl p-8 transition-all duration-300 relative flex flex-col justify-between shadow-2xl shadow-brand-red/20 transform md:-translate-y-4 reveal-element">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-red text-white text-xs uppercase font-bold tracking-widest px-4 py-1.5 rounded-full shadow-lg border border-white/20">
+                        Mais Popular
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-start mb-6 pt-2">
+                            <div>
+                                <span
+                                    class="text-xs uppercase tracking-wider font-bold text-brand-red">Recomendado</span>
+                                <h3 class="font-heading text-3xl font-bold text-white uppercase">Pacote Combatente</h3>
+                            </div>
+                            <span
+                                class="bg-brand-red/20 text-brand-red border border-brand-red/40 px-3 py-1 rounded-full text-xs font-bold">200
+                                Bolinhas</span>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="font-heading text-6xl font-bold text-white">70</span>
+                            <span class="text-sm text-gray-400"> / jogador</span>
+                        </div>
+
+                        <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span><strong>200 Bolinhas</strong> inclusas</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Marcador Tippmann Alta Precisão</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Máscara Anti-embaçante Premium</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Colete + Luvas Táticas</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>2 Horas de combate intenso</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#reserva" onclick="selectPackage('Combatente')"
+                        class="w-full py-4 bg-brand-red hover:bg-brand-darkRed text-white text-center font-bold uppercase rounded-lg transition-all shadow-lg shadow-brand-red/40">
+                        Escolher Combatente
+                    </a>
+                </div>
+
+                <!-- PACOTE COMANDO -->
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg rounded-2xl p-8 hover:border-brand-red/50 transition-all duration-300 relative flex flex-col justify-between shadow-xl reveal-element">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="text-xs uppercase tracking-wider font-bold text-gray-400">Experiência
+                                    Total</span>
+                                <h3 class="font-heading text-3xl font-bold text-white uppercase">Pacote Comando</h3>
+                            </div>
+                            <span
+                                class="bg-gray-800 text-gray-300 px-3 py-1 rounded-full text-xs font-bold border border-gray-700">500
+                                Bolinhas</span>
+                        </div>
+
+                        <div class="mb-8">
+                            <span class="text-sm text-gray-400">R$</span>
+                            <span class="font-heading text-6xl font-bold text-white">120</span>
+                            <span class="text-sm text-gray-400"> / jogador</span>
+                        </div>
+
+                        <ul class="space-y-4 mb-8 text-gray-300 text-sm">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span><strong>500 Bolinhas</strong> inclusas</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Marcador Tático com Sights</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Fardamento Completo Camuflado</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Colete + Luva + Pescoceira</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-check text-brand-red"></i>
+                                <span>Tempo Livre de jogo na reserva</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#reserva" onclick="selectPackage('Comando')"
+                        class="w-full py-3.5 bg-brand-darkGray hover:bg-brand-red text-white text-center font-bold uppercase rounded-lg transition-all border border-gray-700 hover:border-brand-red">
+                        Escolher Comando
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: EQUIPAMENTOS -->
+    <section id="equipamentos" class="py-24 bg-brand-darkGray border-b border-brand-borderBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">Tecnologia
+                    Tática</span>
+                <h2 class="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-wide">
+                    EQUIPAMENTOS DE <span class="text-brand-red">ALTA PERFORMANCE</span>
+                </h2>
+                <div class="w-24 h-1 bg-brand-red mx-auto my-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg p-6 rounded-xl text-center hover:border-brand-red transition-all">
+                    <i class="fa-solid fa-gun text-4xl text-brand-red mb-4"></i>
+                    <h4 class="font-heading text-2xl font-bold text-white uppercase mb-2">Marcadores Tippmann</h4>
+                    <p class="text-gray-400 text-xs">Precisão, confiabilidade e cadência de disparo calibrada para
+                        máxima diversão.</p>
+                </div>
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg p-6 rounded-xl text-center hover:border-brand-red transition-all">
+                    <i class="fa-solid fa-mask text-4xl text-brand-red mb-4"></i>
+                    <h4 class="font-heading text-2xl font-bold text-white uppercase mb-2">Máscaras Térmicas</h4>
+                    <p class="text-gray-400 text-xs">Lentes duplas anti-embaçamento com visão panorâmica de 180°.</p>
+                </div>
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg p-6 rounded-xl text-center hover:border-brand-red transition-all">
+                    <i class="fa-solid fa-vest text-4xl text-brand-red mb-4"></i>
+                    <h4 class="font-heading text-2xl font-bold text-white uppercase mb-2">Coletes Almofadados</h4>
+                    <p class="text-gray-400 text-xs">Proteção frontal e dorsal reforçada para absorção de impactos.</p>
+                </div>
+                <div
+                    class="bg-brand-cardBg border border-brand-borderBg p-6 rounded-xl text-center hover:border-brand-red transition-all">
+                    <i class="fa-solid fa-circle-dot text-4xl text-brand-red mb-4"></i>
+                    <h4 class="font-heading text-2xl font-bold text-white uppercase mb-2">Bolinhas Premium</h4>
+                    <p class="text-gray-400 text-xs">Munição 100% lavável, biodegradável e atóxica de ruptura rápida.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CONDICÕES DO CLIMA (WIDGET DE CLIMA) -->
+    <section id="clima" class="py-20 bg-brand-black border-b border-brand-borderBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="bg-gradient-to-r from-brand-cardBg via-brand-darkGray to-brand-cardBg border border-brand-red/40 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-4">
+                        <span
+                            class="text-yellow-400 font-bold uppercase tracking-widest text-xs flex items-center gap-2">
+                            <i class="fa-solid fa-sun"></i> Monitoramento em Tempo Real - Brasília DF
+                        </span>
+                        <h3 class="font-heading text-4xl sm:text-5xl font-bold uppercase text-white">
+                            CONDIÇÕES PARA O <span class="text-brand-red">COMBATE HOJE</span>
+                        </h3>
+                        <p class="text-gray-300 text-sm sm:text-base">
+                            O Paintball pode ser jogado em qualquer clima! Sol traz visão perfeita e chuva aumenta o
+                            desafio tático na lama!
+                        </p>
+                    </div>
+
+                    <div
+                        class="md:col-span-5 flex flex-col items-center justify-center bg-brand-black/80 border border-brand-borderBg p-6 rounded-2xl text-center">
+                        <div class="flex items-center justify-center space-x-4 mb-2">
+                            <i class="fa-solid fa-cloud-sun text-yellow-400 text-5xl"></i>
+                            <div>
+                                <span class="font-heading text-5xl font-bold text-white">28°C</span>
+                                <span class="text-xs text-gray-400 block uppercase">Brasília, DF</span>
+                            </div>
+                        </div>
+                        <span
+                            class="text-xs text-brand-red font-semibold bg-brand-red/10 px-3 py-1 rounded-full border border-brand-red/30 uppercase mt-2">
+                            Condições Excelentes para Jogo
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: GALERIA DE FOTOS -->
+    <section id="galeria" class="py-24 bg-brand-darkGray border-b border-brand-borderBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">
+                    Registros & Valores
+                </span>
+    
+                <h2 class="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-wide">
+                    FOTOS DE <span class="text-brand-red">COMBATES</span>
+                </h2>
+    
+                <div class="w-24 h-1 bg-brand-red mx-auto my-4 rounded-full"></div>
+            </div>
+    
+            <!-- CARROSSEL -->
+            <div class="relative max-w-5xl mx-auto">
+    
+                <div id="galeriaCarousel"
+                    class="relative overflow-hidden rounded-2xl border border-brand-borderBg h-[500px]">
+    
+                    <!-- FOTO 1 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="esquadrão.jpeg.png" alt="Combate 1" class="w-full h-full object-cover">
+    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Trabalho em Equipe
+                        </div>
+                    </div>
+    
+                    <!-- FOTO 2 -->
+                    <div class="galeria-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                        <img src="torneio _Image_bt1q1bt1q1bt1q1b.jpg" alt="Campeonatos" class="w-full h-full object-cover">
+    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Torneios Nacionais e Internacionais
+                        </div>
+                    </div>
+    
+                    <!-- FOTO 3 -->
+                    <div class="galeria-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                        <img src="Captura de tela 2026-08-15 131509.png" alt="Esquadrão" class="w-full h-full object-cover">
+    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Barricadas Estratégicas
+
+                        </div>
+                    </div>
+
+                    <!-- FOTO 4 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="Captura de tela 2026-08-17 112844.jpg" alt="Combate 1" class="w-full h-full object-cover">
+                    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Cenários Diversos
+                        </div>
+                    </div>
+                    <!-- FOTO 5 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="gas.png" alt="Combate 1" class="w-full h-full object-cover">
+                    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Efeitos de Gás
+                        </div>
+                    </div>
+                    <!-- FOTO 6 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="unidos.png" alt="Combate 1" class="w-full h-full object-cover">
+                    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            Equipe Tatica
+                        </div>
+                    </div>
+                    <!-- FOTO 7 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="confraternização.jpeg.jpg" alt="Combate 1" class="w-full h-full object-cover">
+                    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                             Confraternizações e eventos
+                        </div>
+                    </div>
+                    <!-- FOTO 8 -->
+                    <div class="galeria-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                        <img src="equipevencendo.png" alt="Combate 1" class="w-full h-full object-cover">
+                    
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
+                        </div>
+                    
+                        <div class="absolute bottom-8 left-8 font-heading text-3xl font-bold uppercase text-white">
+                            União e Estratégia
+                        </div>
+                    </div>
+    
+                    <!-- BOTÃO ANTERIOR -->
+                    <button onclick="mudarSlide(-1)"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-brand-red text-white w-12 h-12 rounded-full transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+    
+                    <!-- BOTÃO PRÓXIMO -->
+                    <button onclick="mudarSlide(1)"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/60 hover:bg-brand-red text-white w-12 h-12 rounded-full transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+    
+                    <!-- INDICADORES -->
+                    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+    
+                        <button onclick="irParaSlide(0)"
+                            class="galeria-indicador w-3 h-3 rounded-full bg-brand-red transition-all"></button>
+    
+                        <button onclick="irParaSlide(1)"
+                            class="galeria-indicador w-3 h-3 rounded-full bg-white/50 transition-all"></button>
+    
+                        <button onclick="irParaSlide(2)"
+                            class="galeria-indicador w-3 h-3 rounded-full bg-white/50 transition-all"></button>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SCRIPT DO CARROSSEL -->
+    <script>
+        let slideAtual = 0;
+        const slides = document.querySelectorAll('.galeria-slide');
+        const indicadores = document.querySelectorAll('.galeria-indicador');
+
+        function mostrarSlide(numero) {
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('opacity-100');
+                slide.classList.add('opacity-0');
+
+                if (index === numero) {
+                    slide.classList.remove('opacity-0');
+                    slide.classList.add('opacity-100');
+                }
+            });
+
+            indicadores.forEach((indicador, index) => {
+                indicador.classList.remove('bg-brand-red');
+                indicador.classList.add('bg-white/50');
+
+                if (index === numero) {
+                    indicador.classList.remove('bg-white/50');
+                    indicador.classList.add('bg-brand-red');
+                }
+            });
+        }
+
+        function mudarSlide(direcao) {
+            slideAtual += direcao;
+
+            if (slideAtual >= slides.length) {
+                slideAtual = 0;
+            }
+
+            if (slideAtual < 0) {
+                slideAtual = slides.length - 1;
+            }
+
+            mostrarSlide(slideAtual);
+        }
+
+        function irParaSlide(numero) {
+            slideAtual = numero;
+            mostrarSlide(slideAtual);
+        }
+
+        // TROCA AUTOMÁTICA A CADA 2 SEGUNDOS
+        setInterval(() => {
+            mudarSlide(1);
+        }, 2000);
+    </script>
+
+    <!-- SECTION 7: LOJA INTEGRADA -->
+    <section id="loja" class="py-24 bg-brand-black border-b border-brand-borderBg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+                <div>
+                    <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">Armaria &
+                        Acessórios</span>
+                    <h2 class="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-wide">
+                        LOJA <span class="text-brand-red">TÁTICA</span>
+                    </h2>
+                </div>
+                <button onclick="toggleCart()"
+                    class="mt-4 md:mt-0 bg-brand-red hover:bg-brand-darkRed text-white px-6 py-3 rounded-lg font-bold flex items-center gap-3 transition-all shadow-lg shadow-brand-red/30">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Carrinho</span>
+                    <span id="cart-count"
+                        class="bg-white text-brand-red px-2 py-0.5 rounded-full text-xs font-bold">0</span>
+                </button>
+            </div>
+
+            <!-- PRODUTOS DA LOJA -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- PRODUTO 1 -->
+                <div
+                    class="product-card bg-brand-cardBg border border-brand-borderBg rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div class="p-6 text-center">
+                        <div
+                            class="w-full h-48 rounded-xl bg-black/40 flex items-center justify-center mb-4 overflow-hidden">
+                            <img src="mascara termica jpeg.png" alt="Máscara Térmica Pro" class="w-full h-full object-contain">
+                        </div>
+                        <h4 class="font-heading text-2xl font-bold text-white uppercase">Máscara Térmica Pro</h4>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Lente antirrisco e sistema duplo anti-embaçante - Brinde Tubo de munição.</p>
+                        <span class="font-heading text-3xl font-bold text-brand-red">R$ 249,90</span>
+                    </div>
+                    <div class="p-4 bg-brand-darkGray border-t border-brand-borderBg">
+                        <button onclick="addToCart('Máscara Térmica Pro', 249.90)"
+                            class="w-full py-2.5 bg-brand-red hover:bg-brand-darkRed text-white font-bold rounded-lg text-sm uppercase transition-all">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PRODUTO 2 -->
+                <div
+                    class="product-card bg-brand-cardBg border border-brand-borderBg rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div class="p-6 text-center">
+                        <div
+                            class="w-full h-48 rounded-xl bg-black/40 flex items-center justify-center mb-4 overflow-hidden">
+                            <img src="luva tatica.jpeg.png" alt="Máscara Térmica Pro" class="w-full h-full object-contain">
+                        </div>
+                        <h4 class="font-heading text-2xl font-bold text-white uppercase">Luvas Táticas Revestidas</h4>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Proteção nos nós dos dedos e aderência superior no
+                            gatilho.</p>
+                        <span class="font-heading text-3xl font-bold text-brand-red">R$ 89,90</span>
+                    </div>
+                    <div class="p-4 bg-brand-darkGray border-t border-brand-borderBg">
+                        <button onclick="addToCart('Luvas Táticas Revestidas', 89.90)"
+                            class="w-full py-2.5 bg-brand-red hover:bg-brand-darkRed text-white font-bold rounded-lg text-sm uppercase transition-all">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PRODUTO 3 -->
+                <div
+                    class="product-card bg-brand-cardBg border border-brand-borderBg rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div class="p-6 text-center">
+                        <div
+                            class="w-full h-48 rounded-xl bg-black/40 flex items-center justify-center mb-4 overflow-hidden">
+                            <img src="caixa de munição.jpeg.jpg" alt="Máscara Térmica Pro" class="w-full h-full object-contain">
+                        </div>
+                        <h4 class="font-heading text-2xl font-bold text-white uppercase">Caixa de Bolinhas (2.000 und)</h4>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Munição de alta precisão e tinta 100% biodegradável.
+                        </p>
+                        <span class="font-heading text-3xl font-bold text-brand-red">R$ 190,00</span>
+                    </div>
+                    <div class="p-4 bg-brand-darkGray border-t border-brand-borderBg">
+                        <button onclick="addToCart('Caixa de Bolinhas (2000 un)', 190.00)"
+                            class="w-full py-2.5 bg-brand-red hover:bg-brand-darkRed text-white font-bold rounded-lg text-sm uppercase transition-all">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PRODUTO 4 -->
+                <div
+                    class="product-card bg-brand-cardBg border border-brand-borderBg rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div class="p-6 text-center">
+                        <div
+                            class="w-full h-48 rounded-xl bg-black/40 flex items-center justify-center mb-4 overflow-hidden">
+                            <img src="camisetas.jpeg.jpg" alt="Máscara Térmica Pro" class="w-full h-full object-contain">
+                        </div>
+                        <h4 class="font-heading text-2xl font-bold text-white uppercase">Camisa Tática Lobo Guará</h4>
+                        <p class="text-xs text-gray-400 mt-1 mb-4">Tecido respirável Dry Fit e reforço acolchoado nos ombros.
+                        </p>
+                        <span class="font-heading text-3xl font-bold text-brand-red">R$ 119,90</span>
+                    </div>
+                    <div class="p-4 bg-brand-darkGray border-t border-brand-borderBg">
+                        <button onclick="addToCart('Camisa Tática Lobo Guará', 119.90)"
+                            class="w-full py-2.5 bg-brand-red hover:bg-brand-darkRed text-white font-bold rounded-lg text-sm uppercase transition-all">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARRINHO LATERAL (PANEL SLIDE) -->
+    <div id="cart-panel"
+        class="cart-panel closed fixed top-0 right-0 w-full max-w-md h-full bg-brand-darkGray border-l border-brand-red/40 z-50 p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+            <div class="flex justify-between items-center pb-4 border-b border-gray-800">
+                <h3 class="font-heading text-3xl font-bold text-white uppercase">Seu Carrinho</h3>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="py-4 space-y-4 max-h-[60vh] overflow-y-auto">
+                <p class="text-gray-400 text-sm text-center py-8">Seu carrinho está vazio.</p>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-gray-800 space-y-3">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-400 uppercase font-bold text-sm">Total:</span>
+                <span id="cart-total" class="font-heading text-4xl font-bold text-brand-red">R$ 0,00</span>
+            </div>
+            <button onclick="openCheckoutModal()"
+                class="w-full py-4 bg-brand-red hover:bg-brand-darkRed text-white font-bold uppercase rounded-lg shadow-lg shadow-brand-red/40 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-credit-card text-xl"></i> Pagar / Finalizar Compra
+            </button>
+        </div>
+    </div>
+
+    <!-- SECTION 8: RESERVA E AGENDAMENTO -->
+    <section id="reserva" class="py-24 bg-brand-darkGray relative border-b border-brand-borderBg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-sm block mb-1">Agende Seu
+                    Combate</span>
+                <h2 class="font-heading text-5xl font-bold uppercase">RESERVE A <span class="text-brand-red">SUA
+                        PARTIDA</span></h2>
+            </div>
+
+            <form id="booking-form" onsubmit="sendWhatsAppBooking(event)"
+                class="bg-brand-cardBg border border-brand-borderBg p-8 rounded-2xl shadow-2xl space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Seu Nome</label>
+                        <input type="text" id="name" required placeholder="Ex: Capitão Silva"
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Telefone/WhatsApp</label>
+                        <input type="tel" id="phone" required placeholder="(61) 99999-9999"
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Data do Jogo</label>
+                        <input type="date" id="date" required
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Nº de Jogadores</label>
+                        <input type="number" id="players" min="6" value="10" required
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-3 text-white focus:border-brand-red focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-400 mb-2">Pacote Desejado</label>
+                        <select id="package"
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-3 text-white focus:border-brand-red focus:outline-none">
+                            <option value="Recruta">Pacote Recruta (100 bolinhas - R$ 50/pess)</option>
+                            <option value="Combatente" selected>Pacote Combatente (200 bolinhas - R$ 70/pess)</option>
+                            <option value="Comando">Pacote Comando (500 bolinhas - R$ 120/pess)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 pt-2">
+                    <button type="submit"
+                        class="w-full py-4 bg-brand-red hover:bg-brand-darkRed text-white font-bold uppercase rounded-lg shadow-xl shadow-brand-red/40 transition-all text-lg flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Enviar Agendamento via WhatsApp
+                    </button>
+                    <button type="button" onclick="payReservationDirect()"
+                        class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase rounded-lg shadow-xl transition-all text-lg flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-bolt text-xl"></i> Pagar Sinal no Pix/Cartão
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER / RODAPÉ -->
+    <footer class="bg-brand-black py-12 border-t border-brand-borderBg text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold text-white uppercase mb-2">LOBO GUARÁ <span
+                            class="text-brand-red">PAINTBALL</span></h3>
+                    <p class="text-gray-400 text-xs">O maior e mais emocionante campo de paintball tático de Brasília e
+                        região.</p>
+                </div>
+
+                <div class="flex justify-center">
+                    <div
+                        class="w-28 h-28 rounded-full border-2 border-brand-red bg-brand-black flex items-center justify-center p-1 overflow-hidden">
+                        <img src="logo_lobo_guara_transparente_final.jpg" alt="Logo Footer"
+                            class="w-full h-full object-cover rounded-full">
+                    </div>
+                </div>
+
+                <div class="md:text-right text-gray-400 text-xs space-y-2">
+                    <p><i class="fa-solid fa-location-dot text-brand-red mr-2"></i> QE 56 lt 250 -Guará 2 - Brasília - DF</p>
+                    <p><i class="fa-brands fa-whatsapp text-brand-red mr-2"></i> (61) 99877-8885</p>
+                    <p class="text-gray-500 pt-2">© 2026 Lobo Guará Paintball. Todos os direitos reservados. Desenvolvedor do Site: Sérgio R Reis </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE IMAGEM/DETALHES DA ESTRUTURA -->
+    <div id="info-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brand-cardBg border border-brand-red rounded-2xl max-w-xl w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modal-title" class="font-heading text-3xl font-bold text-white uppercase mb-4"></h3>
+            <img id="modal-image" src="galpao1.jpg" alt="Detalhes"
+                class="w-full h-56 object-cover rounded-xl mb-4 border border-brand-borderBg">
+            <p id="modal-desc" class="text-gray-300 text-sm leading-relaxed mb-6"></p>
+            <button onclick="closeModal()"
+                class="w-full py-3 bg-brand-red text-white font-bold uppercase rounded-lg">Fechar</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CHECKOUT DE PAGAMENTO (PIX & CARTÃO) -->
+    <div id="checkout-modal"
+        class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div
+            class="bg-brand-cardBg border border-brand-red/60 rounded-2xl max-w-xl w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCheckoutModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="text-emerald-400 font-bold uppercase text-xs tracking-wider">Pagamento Seguro SSL
+                    256-bit</span>
+                <h3 class="font-heading text-4xl font-bold text-white uppercase">CHECKOUT DE <span
+                        class="text-brand-red">PAGAMENTO</span></h3>
+                <p class="text-gray-300 text-xs">Total do Pedido: <strong id="checkout-total-display"
+                        class="text-brand-red text-lg font-bold">R$ 0,00</strong></p>
+            </div>
+
+            <!-- SELETOR DE MÉTODO DE PAGAMENTO -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <button id="btn-pay-pix" onclick="switchPaymentMethod('pix')"
+                    class="p-4 bg-brand-darkGray border-2 border-brand-red rounded-xl text-center hover:bg-brand-red/10 transition-all">
+                    <i class="fa-solid fa-pix text-emerald-400 text-3xl mb-1 block"></i>
+                    <span class="font-bold text-sm text-white block">PIX (Instantâneo)</span>
+                    <span class="text-[10px] text-emerald-400">Aprovação imediata</span>
+                </button>
+
+                <button id="btn-pay-card" onclick="switchPaymentMethod('card')"
+                    class="p-4 bg-brand-darkGray border-2 border-gray-700 rounded-xl text-center hover:bg-brand-red/10 transition-all">
+                    <i class="fa-solid fa-credit-card text-brand-red text-3xl mb-1 block"></i>
+                    <span class="font-bold text-sm text-white block">Cartão de Crédito</span>
+                    <span class="text-[10px] text-gray-400">Até 12x no cartão</span>
+                </button>
+            </div>
+
+            <!-- PAINEL PIX -->
+            <div id="panel-pix" class="space-y-4">
+                <div class="bg-brand-black p-4 rounded-xl border border-brand-borderBg text-center">
+                    <p class="text-xs text-gray-400 mb-3">Escaneie o QR Code abaixo pelo aplicativo do seu banco:</p>
+
+                    <!-- QR Code Gerado Dinamicamente -->
+                    <div class="bg-white p-3 rounded-xl inline-block shadow-lg border border-emerald-500 mb-3">
+                        <img id="pix-qr-image"
+                            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020126580014br.gov.bcb.pix013600000000-0000-0000-0000-0000000000005204000053039865802BR5919LOBO%20GUARA%20PAINTBALL6008BRASILIA62070503***6304C63F"
+                            alt="QR Code Pix" class="w-48 h-48 mx-auto">
+                    </div>
+
+                    <p class="text-xs font-bold text-emerald-400">Chave Pix (Copia e Cola):</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <input id="pix-key-input" type="text" readonly
+                            value="00020126580014br.gov.bcb.pix0136loboguarapaintball.df@gmail.com520400005303986"
+                            class="bg-brand-darkGray text-xs text-gray-300 p-2.5 rounded-lg border border-gray-700 w-full focus:outline-none">
+                        <button onclick="copyPixKey()"
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <button onclick="confirmPixPayment()"
+                    class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase rounded-lg transition-all shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check"></i> Já Fiz o Pix / Notificar no WhatsApp
+                </button>
+            </div>
+
+            <!-- PAINEL CARTÃO -->
+            <div id="panel-card" class="space-y-4 hidden">
+                <form id="card-form" onsubmit="processCardPayment(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Número do Cartão</label>
+                        <div class="relative">
+                            <input type="text" required placeholder="0000 0000 0000 0000" maxlength="19"
+                                class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-2.5 pl-10 text-white text-sm focus:border-brand-red focus:outline-none">
+                            <i class="fa-solid fa-credit-card absolute left-3 top-3 text-gray-500"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Nome no Cartão</label>
+                        <input type="text" required placeholder="NOME COMO ESTÁ NO CARTÃO"
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-2.5 text-white text-sm focus:border-brand-red focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Validade
+                                (MM/AA)</label>
+                            <input type="text" required placeholder="12/28" maxlength="5"
+                                class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-2.5 text-white text-sm focus:border-brand-red focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">CVV</label>
+                            <input type="text" required placeholder="123" maxlength="4"
+                                class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-2.5 text-white text-sm focus:border-brand-red focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] uppercase font-bold text-gray-400 mb-1">Parcelamento</label>
+                        <select
+                            class="w-full bg-brand-black border border-brand-borderBg rounded-lg p-2.5 text-white text-sm focus:border-brand-red focus:outline-none">
+                            <option>1x Sem Juros</option>
+                            <option>2x Sem Juros</option>
+                            <option>3x Sem Juros</option>
+                            <option>6x com acréscimo</option>
+                            <option>12x com acréscimo</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-4 bg-brand-red hover:bg-brand-darkRed text-white font-bold uppercase rounded-lg shadow-xl shadow-brand-red/40 transition-all text-sm mt-2 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-lock"></i> Pagar Agora
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT / INTERATIVIDADE COMPLETA -->
+    <script>
+
+        // =========================================================
+        // AMPLIAÇÃO DO PÔSTER DO CAMPEONATO
+        // =========================================================
+
+        function abrirPoster(imagem) {
+            const modal = document.getElementById('posterModal');
+            const img = document.getElementById('imgAmpliada');
+
+            img.src = imagem;
+            modal.style.display = 'flex';
+
+            document.body.style.overflow = 'hidden';
+        }
+
+    function fecharPoster() {
+        const modal = document.getElementById('posterModal');
+
+        modal.style.display = 'none';
+
+        document.body.style.overflow = '';
+    }
+
+    // Fechar também pressionando ESC
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            fecharPoster();
+        }
+    });
+
+        // Menu Mobile Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Modal Functionality
+        function openModalWithImage(title, desc, imageSrc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-image').src = imageSrc;
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        // Carrinho da Loja
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart-panel').classList.toggle('closed');
+        }
+
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-400 text-sm text-center py-8">Seu carrinho está vazio.</p>';
+                cartTotal.innerText = 'R$ 0,00';
+                return;
+            }
+
+            let total = 0;
+            cartItems.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="flex justify-between items-center bg-brand-black p-3 rounded-lg border border-brand-borderBg">
+                        <div>
+                            <p class="text-white font-bold text-sm">${item.title}</p>
+                            <p class="text-brand-red font-bold text-xs">R$ ${item.price.toFixed(2)}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-brand-red">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotal.innerText = `R$ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // CHECKOUT & SISTEMA DE PAGAMENTO INTERATIVO
+        let currentCheckoutTotal = 0;
+
+        function getCartTotalNum() {
+            return cart.reduce((sum, item) => sum + item.price, 0);
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+            currentCheckoutTotal = getCartTotalNum();
+            document.getElementById('checkout-total-display').innerText = `R$ ${currentCheckoutTotal.toFixed(2)}`;
+
+            // Atualiza imagem do QR Code Pix com valor
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=LOBO-GUARÁ-PAINTBALL-VALOR-RS-${currentCheckoutTotal.toFixed(2)}`;
+            document.getElementById('pix-qr-image').src = qrUrl;
+
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function switchPaymentMethod(method) {
+            const pixBtn = document.getElementById('btn-pay-pix');
+            const cardBtn = document.getElementById('btn-pay-card');
+            const pixPanel = document.getElementById('panel-pix');
+            const cardPanel = document.getElementById('panel-card');
+
+            if (method === 'pix') {
+                pixBtn.className = "p-4 bg-brand-darkGray border-2 border-brand-red rounded-xl text-center hover:bg-brand-red/10 transition-all";
+                cardBtn.className = "p-4 bg-brand-darkGray border-2 border-gray-700 rounded-xl text-center hover:bg-brand-red/10 transition-all";
+                pixPanel.classList.remove('hidden');
+                cardPanel.classList.add('hidden');
+            } else {
+                cardBtn.className = "p-4 bg-brand-darkGray border-2 border-brand-red rounded-xl text-center hover:bg-brand-red/10 transition-all";
+                pixBtn.className = "p-4 bg-brand-darkGray border-2 border-gray-700 rounded-xl text-center hover:bg-brand-red/10 transition-all";
+                cardPanel.classList.remove('hidden');
+                pixPanel.classList.add('hidden');
+            }
+        }
+
+        function copyPixKey() {
+            const input = document.getElementById('pix-key-input');
+            input.select();
+            document.execCommand('copy');
+            alert('Chave Pix copiada com sucesso!');
+        }
+
+        function confirmPixPayment() {
+            let text = "Olá! Fiz um pagamento via Pix referente ao pedido da Loja Tática:\n\n";
+            cart.forEach(item => {
+                text += `- ${item.title}: R$ ${item.price.toFixed(2)}\n`;
+            });
+            text += `\n*Total:* R$ ${currentCheckoutTotal.toFixed(2)}`;
+            window.open(`https://wa.me/5561999999999?text=${encodeURIComponent(text)}`, '_blank');
+            closeCheckoutModal();
+        }
+
+        function processCardPayment(event) {
+            event.preventDefault();
+            alert('Pagamento em cartão processado com sucesso! Um comprovante foi enviado.');
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+        }
+
+        function payReservationDirect() {
+            const pkg = document.getElementById('package').value;
+            const players = document.getElementById('players').value;
+            let pricePerPerson = 70;
+            if (pkg === 'Recruta') pricePerPerson = 50;
+            if (pkg === 'Comando') pricePerPerson = 120;
+
+            const total = pricePerPerson * players;
+            currentCheckoutTotal = total;
+
+            document.getElementById('checkout-total-display').innerText = `R$ ${total.toFixed(2)} (${players}x Pacote ${pkg})`;
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        // Selecionar Pacote no Form
+        function selectPackage(packageName) {
+            document.getElementById('package').value = packageName;
+        }
+
+        // Envio do Form via WhatsApp
+        function sendWhatsAppBooking(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const players = document.getElementById('players').value;
+            const pkg = document.getElementById('package').value;
+
+            const text = `Olá! Gostaria de agendar um combate no Lobo Guará Paintball:\n\n` +
+                `*Nome:* ${name}\n` +
+                `*Telefone:* ${phone}\n` +
+                `*Data:* ${date}\n` +
+                `*Jogadores:* ${players}\n` +
+                `*Pacote Escolhido:* ${pkg}`;
+
+            window.open(`https://wa.me/5561999999999?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Animação de Scroll (Reveal)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
